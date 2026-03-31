@@ -12,7 +12,8 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "npm run lint && npm run build"
   },
   "engines": {
     "inkdrop": "^6.x"
