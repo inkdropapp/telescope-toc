@@ -1,7 +1,7 @@
 {
   "name": "telescope-toc",
   "main": "./lib/index.js",
-  "version": "3.1.2",
+  "version": "0.1.0",
   "description": "A Table of Contents source plugin for Telescope",
   "keywords": [
     "telescope",
