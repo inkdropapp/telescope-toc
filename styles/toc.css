@@ -1,0 +1,7 @@
+.telescope-option-view.telescope-source-toc {
+  .telescope-option-prefix {
+    font-family: monospace;
+    opacity: 0.4;
+    letter-spacing: 0.1em;
+  }
+}

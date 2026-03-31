@@ -1,0 +1,13 @@
+{
+  "menu": [
+    {
+      "label": "Navigate",
+      "submenu": [
+        {
+          "label": "Jump to Section...",
+          "command": "telescope-toc:show"
+        }
+      ]
+    }
+  ]
+}

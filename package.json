@@ -1,0 +1,34 @@
+{
+  "name": "telescope-toc",
+  "main": "./lib/index.js",
+  "version": "3.1.2",
+  "description": "A Table of Contents source plugin for Telescope",
+  "keywords": [
+    "telescope",
+    "toc",
+    "outline"
+  ],
+  "repository": "https://github.com/inkdropapp/telescope-toc",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "build": "tsc"
+  },
+  "engines": {
+    "inkdrop": "^6.x"
+  },
+  "styleSheets": [
+    "styles/toc.css"
+  ],
+  "devDependencies": {
+    "@codemirror/language": "^6.0.0",
+    "@codemirror/state": "^6.0.0",
+    "@codemirror/view": "^6.0.0",
+    "@inkdropapp/types": "^0.0.3",
+    "@types/react": "^19.0.0",
+    "eslint": "^10.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.1",
+    "typescript": "^6.0.2"
+  }
+}
