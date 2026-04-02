@@ -22,11 +22,8 @@
     "styles/toc.css"
   ],
   "devDependencies": {
-    "@codemirror/language": "^6.0.0",
-    "@codemirror/state": "^6.0.0",
-    "@codemirror/view": "^6.0.0",
     "@inkdropapp/types": "^0.0.3",
-    "@types/react": "^19.0.0",
+    "@types/react": "^19.2.14",
     "eslint": "^10.1.0",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.8.1",
