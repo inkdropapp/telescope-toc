@@ -24,7 +24,7 @@
   ],
   "devDependencies": {
     "@codemirror/language": "^6.12.3",
-    "@inkdropapp/types": "^0.0.5",
+    "@inkdropapp/types": "^0.0.7",
     "@types/react": "^19.2.15",
     "eslint": "^10.4.0",
     "eslint-config-prettier": "^10.1.8",

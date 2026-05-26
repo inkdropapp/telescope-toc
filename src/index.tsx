@@ -1,24 +1,28 @@
+import type { Environment, IInkdropPlugin } from '@inkdropapp/types'
 import { TelescopeSourceToc, SOURCE_ID } from './toc-source.js'
 import { EditorHeaderTOC } from './components/editor-header-toc.js'
+import { setEnv } from './env.js'
 
-class InkdropPlugin {
+class InkdropPlugin implements IInkdropPlugin {
   private disposable: { dispose(): void } | null = null
 
-  activate() {
-    const source = new TelescopeSourceToc()
-    inkdrop.telescope.registerSource(source)
+  activate(app: Environment) {
+    setEnv(app)
 
-    inkdrop.components.registerClass(EditorHeaderTOC, 'EditorHeaderTOC')
-    inkdrop.layouts.insertComponentToLayoutBefore(
+    const source = new TelescopeSourceToc()
+    app.telescope.registerSource(source)
+
+    app.components.registerClass(EditorHeaderTOC, 'EditorHeaderTOC')
+    app.layouts.insertComponentToLayoutBefore(
       'editor-header',
       'EditorHeaderMore',
       'EditorHeaderTOC'
     )
 
-    this.disposable = inkdrop.commands.add(document.body, {
+    this.disposable = app.commands.add(document.body, {
       'telescope-toc:show': () => {
         const itemId = TelescopeSourceToc.getCurrentSectionItemId()
-        inkdrop.commands.dispatch(document.body, 'core:show-telescope', {
+        app.commands.dispatch(document.body, 'core:show-telescope', {
           scopedSourceId: SOURCE_ID,
           initialSelectedItemId: itemId,
           cancelBehavior: 'close'
@@ -27,19 +31,16 @@ class InkdropPlugin {
     })
   }
 
-  deactivate() {
-    inkdrop.telescope.unregisterSource(SOURCE_ID)
-    inkdrop.layouts.removeComponentFromLayout(
-      'editor-header',
-      'EditorHeaderTOC'
-    )
-    inkdrop.components.deleteClass(EditorHeaderTOC)
+  deactivate(app: Environment) {
+    app.telescope.unregisterSource(SOURCE_ID)
+    app.layouts.removeComponentFromLayout('editor-header', 'EditorHeaderTOC')
+    app.components.deleteClass(EditorHeaderTOC)
     if (this.disposable) {
       this.disposable.dispose()
       this.disposable = null
     }
+    setEnv(undefined)
   }
 }
 
-const plugin = new InkdropPlugin()
-export default plugin
+export default new InkdropPlugin()

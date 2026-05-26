@@ -8,6 +8,7 @@ import { TelescopeSource } from 'inkdrop'
 import { syntaxTree } from '@codemirror/language'
 import { editorUtils } from 'inkdrop'
 import { ListIcon, CheckIcon, TaskListCheckIcon } from './components/icons.js'
+import { getEnv } from './env.js'
 
 export const SOURCE_ID = 'toc'
 
@@ -26,7 +27,10 @@ export class TelescopeSourceToc extends TelescopeSource {
   defaultAlias = '#'
 
   isEnabled(): boolean {
-    return !inkdrop.config.get(`telescope.sources.${this.id}.disabled`, false)
+    return !getEnv().config.get(
+      `telescope.sources.${this.id}.disabled`,
+      false
+    )
   }
 
   isAvailable(): boolean {
@@ -34,7 +38,7 @@ export class TelescopeSourceToc extends TelescopeSource {
   }
 
   getItems({ query }: TelescopeContext): TelescopeResult {
-    const { editingNote } = inkdrop.store.getState()
+    const { editingNote } = getEnv().store.getState()
     if (!editingNote) return { options: [] }
 
     const tocItems = extractTocItems()
@@ -83,10 +87,11 @@ export class TelescopeSourceToc extends TelescopeSource {
       const line = parseInt(item.id.replace('toc-', ''), 10)
 
       if (line > 0) {
-        const { editor } = inkdrop.store.getState()
+        const env = getEnv()
+        const { editor } = env.store.getState()
 
         if (editor.viewMode === 'preview') {
-          inkdrop.commands.dispatch(
+          env.commands.dispatch(
             document.body,
             'editor:scroll-preview-to-line',
             { line }
@@ -94,8 +99,8 @@ export class TelescopeSourceToc extends TelescopeSource {
         } else {
           const target = document.querySelector('.cm-editor') as HTMLElement
           if (target) {
-            inkdrop.commands.dispatch(target, 'editor:jump-to-line', { line })
-            inkdrop.commands.dispatch(document.body, 'editor:focus-mde')
+            env.commands.dispatch(target, 'editor:jump-to-line', { line })
+            env.commands.dispatch(document.body, 'editor:focus-mde')
           }
         }
       }
@@ -109,8 +114,9 @@ export class TelescopeSourceToc extends TelescopeSource {
   }
 
   static getCurrentSectionItemId(): string | null {
-    const { editor } = inkdrop.store.getState()
-    const cm = inkdrop.getActiveEditorOrThrowError()
+    const env = getEnv()
+    const { editor } = env.store.getState()
+    const cm = env.getActiveEditorOrThrowError()
     const tree = syntaxTree(cm.state)
     let line: number = 0
 
@@ -144,7 +150,7 @@ export class TelescopeSourceToc extends TelescopeSource {
 }
 
 function extractTocItems(): TocItem[] {
-  const cm = inkdrop.getActiveEditor()
+  const cm = getEnv().getActiveEditor()
   if (!cm) return []
 
   const tree = syntaxTree(cm.state)

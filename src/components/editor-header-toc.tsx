@@ -1,10 +1,12 @@
+import { getEnv } from '../env.js'
+
 export const EditorHeaderTOC = () => {
-  const AppHeaderButton =
-    inkdrop.components.getComponentClass('AppHeaderButton')
+  const env = getEnv()
+  const AppHeaderButton = env.components.getComponentClass('AppHeaderButton')
   if (!AppHeaderButton) return null
 
   const handleClick = () => {
-    inkdrop.commands.dispatch(document.body, 'telescope-toc:show')
+    env.commands.dispatch(document.body, 'telescope-toc:show')
   }
 
   return (
