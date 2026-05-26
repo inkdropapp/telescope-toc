@@ -12,6 +12,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
+    "format": "prettier --write .",
     "build": "tsc",
     "prepublishOnly": "npm run lint && npm run build"
   },
@@ -22,11 +23,12 @@
     "styles/toc.css"
   ],
   "devDependencies": {
-    "@inkdropapp/types": "^0.0.3",
-    "@types/react": "^19.2.14",
-    "eslint": "^10.1.0",
+    "@codemirror/language": "^6.12.3",
+    "@inkdropapp/types": "^0.0.5",
+    "@types/react": "^19.2.15",
+    "eslint": "^10.4.0",
     "eslint-config-prettier": "^10.1.8",
-    "prettier": "^3.8.1",
-    "typescript": "^6.0.2"
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3"
   }
 }
