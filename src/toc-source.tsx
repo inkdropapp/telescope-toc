@@ -1,12 +1,9 @@
-import React from 'react'
-import type {
-  TelescopeContext,
-  TelescopeResult,
-  TelescopeSourceItem
-} from '@inkdropapp/types'
-import { TelescopeSource } from 'inkdrop'
 import { syntaxTree } from '@codemirror/language'
+import type { TelescopeContext, TelescopeResult, TelescopeSourceItem } from '@inkdropapp/types'
+import { TelescopeSource } from 'inkdrop'
 import { editorUtils } from 'inkdrop'
+import React from 'react'
+
 import { ListIcon, CheckIcon, TaskListCheckIcon } from './components/icons.js'
 import { getEnv } from './env.js'
 
@@ -27,10 +24,7 @@ export class TelescopeSourceToc extends TelescopeSource {
   defaultAlias = '#'
 
   isEnabled(): boolean {
-    return !getEnv().config.get(
-      `telescope.sources.${this.id}.disabled`,
-      false
-    )
+    return !getEnv().config.get(`telescope.sources.${this.id}.disabled`, false)
   }
 
   isAvailable(): boolean {
@@ -91,11 +85,7 @@ export class TelescopeSourceToc extends TelescopeSource {
         const { editor } = env.store.getState()
 
         if (editor.viewMode === 'preview') {
-          env.commands.dispatch(
-            document.body,
-            'editor:scroll-preview-to-line',
-            { line }
-          )
+          env.commands.dispatch(document.body, 'editor:scroll-preview-to-line', { line })
         } else {
           const target = document.querySelector('.cm-editor') as HTMLElement
           if (target) {
@@ -136,10 +126,7 @@ export class TelescopeSourceToc extends TelescopeSource {
       enter: ({ from, type }) => {
         const nodeLine = cm.state.doc.lineAt(from).number
         if (nodeLine > line) return false
-        if (
-          type.name.startsWith('ATXHeading') ||
-          type.name.startsWith('SetextHeading')
-        ) {
+        if (type.name.startsWith('ATXHeading') || type.name.startsWith('SetextHeading')) {
           currentSectionId = `toc-${nodeLine}`
         }
       }
@@ -158,7 +145,7 @@ function extractTocItems(): TocItem[] {
   const items: TocItem[] = []
 
   tree.iterate({
-    enter: node => {
+    enter: (node) => {
       const { from, to, type } = node
       const nodeLine = state.doc.lineAt(from).number
 

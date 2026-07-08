@@ -1,7 +1,8 @@
 import type { Environment, IInkdropPlugin } from '@inkdropapp/types'
-import { TelescopeSourceToc, SOURCE_ID } from './toc-source.js'
+
 import { EditorHeaderTOC } from './components/editor-header-toc.js'
 import { setEnv } from './env.js'
+import { TelescopeSourceToc, SOURCE_ID } from './toc-source.js'
 
 class InkdropPlugin implements IInkdropPlugin {
   private disposable: { dispose(): void } | null = null
