@@ -2,7 +2,7 @@ import { getEnv } from '../env.js'
 
 export const EditorHeaderTOC = () => {
   const env = getEnv()
-  const AppHeaderButton = env.components.getComponentClass('AppHeaderButton')
+  const { AppHeaderButton } = env.components.classes
   if (!AppHeaderButton) return null
 
   const handleClick = () => {
